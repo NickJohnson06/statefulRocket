@@ -29,6 +29,16 @@ class _CounterWidgetState extends State<CounterWidget> {
   //set counter value
   int _counter = 0;
 
+  Color _getTextColor() {
+    if (_counter == 0) {
+      return Colors.red;
+    } else if (_counter > 50) {
+      return Colors.green;
+    } else {
+      return Colors.orange; // For values between 1 and 50
+    }
+  }
+
   void _incrementCounter() {
     setState((){
       if(_counter < 100){
@@ -57,21 +67,53 @@ class _CounterWidgetState extends State<CounterWidget> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rocket Launch Controller'),
+        backgroundColor: Colors.blue,
       ),
-        //set up the widget alignement
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Display counter or LIFTOFF message
           Center(
             child: Container(
-              color: Colors.blue,
-              child: Text(
-                //to displays current number
-                '$_counter',
-                style: TextStyle(fontSize: 50.0),
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade100,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Colors.blue, width: 2),
               ),
+              child: _counter == 100
+                  ? Column(
+                      children: [
+                        Text(
+                          'LIFTOFF! 🚀',
+                          style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                          ),
+                        ),
+                        Text(
+                          '$_counter',
+                          style: TextStyle(
+                            fontSize: 30.0,
+                            color: _getTextColor(),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      '$_counter',
+                      style: TextStyle(
+                        fontSize: 50.0,
+                        fontWeight: FontWeight.bold,
+                        color: _getTextColor(),
+                      ),
+                    ),
             ),
           ),
+          
+          SizedBox(height: 30),
+          
           Slider(
             min: 0,
             max: 100,
