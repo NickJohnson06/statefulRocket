@@ -66,8 +66,15 @@ class _CounterWidgetState extends State<CounterWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Rocket Launch Controller'),
-        backgroundColor: Colors.blue,
+        centerTitle: true,
+       title: const Text('Rocket Launch Controller', 
+          style: TextStyle(
+            fontSize: 16, 
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 76, 0, 255),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -123,13 +130,14 @@ class _CounterWidgetState extends State<CounterWidget> {
                 _counter = value.toInt();
               });
             },
-            activeColor: Colors.blue,
+            activeColor: Color.fromARGB(255, 76, 0, 255),
             inactiveColor: Colors.red,
           ),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+             
               //Ignite Button
               ElevatedButton(
                 onPressed: _incrementCounter,
@@ -143,31 +151,70 @@ class _CounterWidgetState extends State<CounterWidget> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   )
                 ),
+                
                 //Abort Button
-                ElevatedButton(
-                  onPressed: _decrementCounter,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange, 
-                    foregroundColor: Colors.white, 
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
-                  child: Text(
-                    'Abort',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-                  ),
-                  //Reset Button
-                  ElevatedButton(
-                    onPressed: _resetCounter, 
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    ),
-                    child: Text('Reset', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-                  ),
+              ElevatedButton(
+                onPressed: _decrementCounter,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange, 
+                  foregroundColor: Colors.white, 
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
+                child: Text(
+                  'Abort',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                ),
+              
+              //Reset Button
+              ElevatedButton(
+                onPressed: _resetCounter, 
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                ),
+                child: Text('Reset', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+          ),
+          
           ],    
-          )
+          ),
+          SizedBox(height: 30),
+
+          Container(
+            padding: EdgeInsets.all(15),
+            margin: EdgeInsets.symmetric(horizontal: 40),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Icon(
+                  _counter == 0 ? Icons.warning : 
+                  _counter == 100 ? Icons.rocket_launch : Icons.science,
+                  color: _getTextColor(),
+                  size: 24,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  _counter == 0 ? 'Ready for Fuel' :
+                  _counter == 100 ? 'Mission Success!' : 
+                  _counter > 50 ? 'Ready for Launch' : 'Fueling...',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: _getTextColor(),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
+              
+          
