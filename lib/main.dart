@@ -29,13 +29,36 @@ class _CounterWidgetState extends State<CounterWidget> {
   //set counter value
   int _counter = 0;
 
+  void _incrementCounter() {
+    setState((){
+      if(_counter < 100){
+        _counter++;
+        
+      }
+    });
+  }
+
+  void _decrementCounter(){
+    setState(() {
+      if(_counter > 0){
+        _counter--;
+      }
+    });
+  }
+
+  void _resetCounter(){
+    setState(() {
+      _counter = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rocket Launch Controller'),
       ),
-//set up the widget alignement
+        //set up the widget alignement
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -61,6 +84,46 @@ class _CounterWidgetState extends State<CounterWidget> {
             activeColor: Colors.blue,
             inactiveColor: Colors.red,
           ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              //Ignite Button
+              ElevatedButton(
+                onPressed: _incrementCounter,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green, 
+                  foregroundColor: Colors.white, 
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
+
+                child: Text(
+                  'Ignite', 
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  )
+                ),
+                //Abort Button
+                ElevatedButton(
+                  onPressed: _decrementCounter,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange, 
+                    foregroundColor: Colors.white, 
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
+                  child: Text(
+                    'Abort',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                  ),
+                  //Reset Button
+                  ElevatedButton(
+                    onPressed: _resetCounter, 
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    ),
+                    child: Text('Reset', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                  ),
+          ],    
+          )
         ],
       ),
     );
